@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Component
 public class TestQuartzJob {
-    @Scheduled(cron = "*/1 * * * * ?")
+    @Scheduled(cron = "*/5 * * * * ?")
     public void run() {
         System.out.println("Hello quartz! now ->" + new Date());
     }
