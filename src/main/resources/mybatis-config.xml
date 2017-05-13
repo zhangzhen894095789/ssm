@@ -16,7 +16,7 @@
     </settings>
 
     <typeAliases>
-        <package name="com.lechiche.domain" />
+        <package name="com.zhangzhen.domain" />
     </typeAliases>
 
 </configuration>
