@@ -119,6 +119,12 @@
             <artifactId>spring-test</artifactId>
             <version>4.0.2.RELEASE</version>
         </dependency>
+        <!-- rabbitMq客户端 -->
+        <dependency>
+			  <groupId>com.rabbitmq</groupId>
+			  <artifactId>amqp-client</artifactId>
+			  <version>4.1.0</version>
+		</dependency>
     </dependencies>
     <build>
         <finalName>ssm</finalName>

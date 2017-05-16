@@ -20,14 +20,13 @@
 	<!-- quartz配置xml方式 -->
 	
 	
-	<!-- 被调用的job对象bean -->
+	<!-- step1 被调用的job对象bean -->
 	
-	<!-- job 对应的 jobDeatil -->
+	<!-- step2 job 对应的 jobDeatil -->
 	
-	<!-- quartz触发器工厂 -->
+	<!-- step3 quartz調度触发器工厂 -->
 	
-	<!-- quartz总调度器工厂 -->
-	
+	<!-- step4 quartz总调度工厂 -->
 	
 	<bean id="packActionJob" class="me.zhangzhen.job.XmlJob" />
 	<bean id="packActionJobDetail"
