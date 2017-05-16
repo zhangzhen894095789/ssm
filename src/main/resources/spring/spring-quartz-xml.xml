@@ -47,6 +47,7 @@
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
+			<!-- 并列调用多个trigger，多个trigger对应多个job -->
 				<ref bean="packActionJobTigger" />
 			</list>
 		</property>
