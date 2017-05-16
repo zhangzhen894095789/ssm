@@ -11,17 +11,17 @@
         spring-dao.xml,spring-service.xml,spring-mvc.xml,spring-quartz.xml
         Mybatis - > spring -> springmvc -> quartz
      -->
-    <init-param>
+    <!-- <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring/spring-*.xml</param-value>
-    </init-param>
+    </init-param> -->
   </servlet>
   <servlet-mapping>
     <servlet-name>job-dispatcher</servlet-name>
     <!-- 默认匹配所有的请求 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
+<!-- spring上下文监听器，加载项目运行所需的配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/spring-*.xml</param-value>

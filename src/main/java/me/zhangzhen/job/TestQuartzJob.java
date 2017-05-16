@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * Created by lis on 16/7/6.
+ * Created by 张振 on 16/7/6.
  */
 @Component
 public class TestQuartzJob {
-    @Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "*/30 * * * * ?")
     public void run() {
-        System.out.println("Hello quartz! now ->" + new Date());
+        System.out.println("Hello quartz! now ->" + new Date().toLocaleString());
     }
 }
