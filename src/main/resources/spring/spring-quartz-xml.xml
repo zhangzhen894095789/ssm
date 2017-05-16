@@ -19,16 +19,10 @@
 
 	<!-- quartz配置xml方式 -->
 	
-	
 	<!-- step1 被调用的job对象bean -->
+	<bean id="packActionJob" class="me.zhangzhen.job.XmlJob" />
 	
 	<!-- step2 job 对应的 jobDeatil -->
-	
-	<!-- step3 quartz調度触发器工厂 -->
-	
-	<!-- step4 quartz总调度工厂 -->
-	
-	<bean id="packActionJob" class="me.zhangzhen.job.XmlJob" />
 	<bean id="packActionJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
@@ -38,14 +32,16 @@
 			<value>execute</value>
 		</property>
 	</bean>
-
+	
+	<!-- step3 quartz調度触发器工厂 -->
 	<!-- ======================== 调度触发器 ======================== -->
 	<bean id="packActionJobTigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="packActionJobDetail"></property>
 		<property name="cronExpression" value="0/5 * * * * ?"></property>
 		<!-- <property name="cronExpression" value="0 0 1 * * ?"></property> -->
 	</bean>
-
+	
+	<!-- step4 quartz总调度工厂 -->
 	<!-- ======================== 调度工厂 ======================== -->
 	<bean id="SpringJobSchedulerFactoryBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
