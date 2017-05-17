@@ -22,6 +22,7 @@
         (2)允许使用"/"做整体映射
      -->
     <mvc:default-servlet-handler/>
+	<context:property-placeholder location="classpath:application_admin.properties"/>
 
     <!-- 3.配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,4 +33,13 @@
 
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="me.zhangzhen.web" />
+    
+    <!-- 加载相应的配置properties配置文件 -->
+       <bean id="appConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:application_all.properties</value>
+        </property>
+    </bean>
+    <!-- 另一种加载properties的方法 -->
+    <!-- <util:properties id="appConfig" location="classpath:application_admin.properties"/> -->  
 </beans>

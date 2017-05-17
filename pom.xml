@@ -44,6 +44,12 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.1.1</version>
         </dependency>
+        <!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
         <!-- Dao层相关依赖 mybatis-->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -119,6 +125,12 @@
             <artifactId>spring-test</artifactId>
             <version>4.0.2.RELEASE</version>
         </dependency>
+        <!-- 6) spring rabbit  -->
+        <dependency>
+		<groupId>org.springframework.amqp</groupId>
+		<artifactId>spring-rabbit</artifactId>
+		<version>1.5.6.RELEASE</version>
+		</dependency>
         <!-- rabbitMq客户端 -->
         <dependency>
 			  <groupId>com.rabbitmq</groupId>

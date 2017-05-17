@@ -2,14 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd
-	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+	http://www.springframework.org/schema/jdbc 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"
+	>
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder location="classpath:jdbc.properties" />
@@ -33,6 +39,76 @@
         <property name="acquireRetryAttempts" value="2" />
     </bean>
 
+	<!-- 阿里 druid数据库连接池 -->
+<!-- 	<bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		数据库基本信息配置
+		<property name="url" value="#{appConfig['jdbc.url']}" />
+		<property name="username" value="#{appConfig['jdbc.username']}" />
+		<property name="password" value="#{appConfig['jdbc.password']}" />
+		<property name="driverClassName" value="#{appConfig['jdbc.driverClassName']}" />
+		<property name="filters" value="#{appConfig['filters']}" />
+		最大并发连接数
+		<property name="maxActive" value="#{appConfig['maxActive']}" />
+		初始化连接数量
+		<property name="initialSize" value="#{appConfig['initialSize']}" />
+		配置获取连接等待超时的时间
+		<property name="maxWait" value="#{appConfig['maxWait']}" />
+		最小空闲连接数
+		<property name="minIdle" value="#{appConfig['minIdle']}" />
+		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+		<property name="timeBetweenEvictionRunsMillis" value="#{appConfig['timeBetweenEvictionRunsMillis']}" />
+		配置一个连接在池中最小生存的时间，单位是毫秒
+		<property name="minEvictableIdleTimeMillis" value="#{appConfig['minEvictableIdleTimeMillis']}" />
+		<property name="validationQuery" value="#{appConfig['validationQuery']}" />
+		<property name="testWhileIdle" value="#{appConfig['testWhileIdle']}" />
+		<property name="testOnBorrow" value="#{appConfig['testOnBorrow']}" />
+		<property name="testOnReturn" value="#{appConfig['testOnReturn']}" />
+		<property name="maxOpenPreparedStatements" value="#{appConfig['maxOpenPreparedStatements']}" />
+		打开removeAbandoned功能
+		<property name="removeAbandoned" value="#{appConfig['removeAbandoned']}" />
+		1800秒，也就是30分钟
+		<property name="removeAbandonedTimeout" value="#{appConfig['removeAbandonedTimeout']}" />
+		关闭abanded连接时输出错误日志
+		<property name="logAbandoned" value="#{appConfig['logAbandoned']}" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	事物处理
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* me.zhangzhen.service..*(..))" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+	</aop:config>
+	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.fh.model" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mybatis/*/*.xml"></property>
+	</bean>
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="me.zhangzhen.mapper" />
+		<property name="properties">
+			<value>
+				mappers=tk.mybatis.mapper.common.Mapper
+				IDENTITY=MYSQL
+				notEmpty=true
+			</value>
+		</property>
+	</bean> -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
     <!-- 3.配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 注入数据库连接池 -->
