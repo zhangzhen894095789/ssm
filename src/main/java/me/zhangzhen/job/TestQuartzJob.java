@@ -10,8 +10,8 @@ import java.util.Date;
  */
 @Component
 public class TestQuartzJob {
-    @Scheduled(cron = "*/30 * * * * ?")
-    public void run() {
-        System.out.println("Hello quartz! now ->" + new Date().toLocaleString());
-    }
+//    @Scheduled(cron = "*/30 * * * * ?")
+//    public void run() {
+//        System.out.println("Hello quartz! now ->" + new Date().toLocaleString());
+//    }
 }
