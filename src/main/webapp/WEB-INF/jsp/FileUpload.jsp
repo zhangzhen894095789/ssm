@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ajax实现异步上传文件</title>
 <script src="js/jquery/jquery-3.2.1.js" type="text/javascript"></script>
 <!-- <script src="js/jquery/jquery.ext.js" type="text/javascript"></script>-->
 <script src="js/jquery/jquery-form.js" type="text/javascript"></script> 
