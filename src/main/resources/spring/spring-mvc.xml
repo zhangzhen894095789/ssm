@@ -56,9 +56,8 @@
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>  
  -->
 
-	<!-- <mvc:annotation-driven>
+	 <mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-			json处理
 			<bean
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="supportedMediaTypes">
@@ -69,7 +68,7 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-	</mvc:annotation-driven> -->
+	</mvc:annotation-driven>
 
 	<!-- 访问拦截 -->
 <!-- 	<mvc:interceptors>

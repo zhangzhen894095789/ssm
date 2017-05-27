@@ -10,7 +10,14 @@ public class PageController {
 	@RequestMapping(value = "/uploadPic")
 	public ModelAndView toUpload(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("FileUpload");
+		mv.setViewName("upload/FileUpload_pluploadjs");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/fileUpload")
+	public ModelAndView fileUpload(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("upload/FileUpload");
 		return mv;
 	}
 }
