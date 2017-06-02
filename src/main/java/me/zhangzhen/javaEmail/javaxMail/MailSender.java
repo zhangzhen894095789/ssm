@@ -33,7 +33,7 @@ public class MailSender  {
       }   
       // 根据邮件会话属性和密码验证器构造一个发送邮件的session    
       Session sendMailSession = Session.getDefaultInstance(pro,authenticator); 
-      
+      sendMailSession.setDebug(true);//发送邮件的过程控制台打印出来
       // 根据session创建一个邮件消息    
       Message mailMessage = new MimeMessage(sendMailSession);    
       // 创建邮件发送者地址    
@@ -69,7 +69,7 @@ public class MailSender  {
       }    
       // 根据邮件会话属性和密码验证器构造一个发送邮件的session    
       Session sendMailSession = Session.getDefaultInstance(pro,authenticator);    
-        
+      sendMailSession.setDebug(true);//发送邮件的过程控制台打印出来
       // 根据session创建一个邮件消息    
       Message mailMessage = new MimeMessage(sendMailSession);    
       // 创建邮件发送者地址    
