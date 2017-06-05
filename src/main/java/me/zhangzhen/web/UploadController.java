@@ -17,8 +17,8 @@ public class UploadController {
         return "success";
     }
     
-    //@RequestMapping(value = "/test.do",produces = "text/html;charset=UTF-8")//返回中文乱码处理
-    @RequestMapping(value = "/test.do")
+    @RequestMapping(value = "/test.do",produces = "text/html;charset=UTF-8")//返回中文乱码处理
+//    @RequestMapping(value = "/test.do")
     @ResponseBody
     public String test(){
     	return "哈哈哈";
