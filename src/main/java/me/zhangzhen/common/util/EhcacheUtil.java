@@ -11,7 +11,7 @@ import net.sf.ehcache.Element;
 
 /**
  * ehcache工具类
- * @author cdf
+ * 
  *
  */
 public class EhcacheUtil {
