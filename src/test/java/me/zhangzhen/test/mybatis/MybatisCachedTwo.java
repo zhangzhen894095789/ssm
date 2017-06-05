@@ -27,17 +27,17 @@ public class MybatisCachedTwo {
 
 	}
 
-	// 增加 清空缓存
+	// 增加 清空二级缓存
 	@Test
 	public void testCreate() {
 	}
 
-	// 更新 清空缓存
+	// 更新 清空二级缓存
 	@Test
 	public void testUpdate() {
 	}
 
-	// 删除 清空缓存
+	// 删除 清空二级缓存
 	@Test
 	public void testDelete() {
 	}
