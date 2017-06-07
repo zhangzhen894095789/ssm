@@ -8,6 +8,8 @@ import java.util.Properties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import me.zhangzhen.util.EhcacheUtil;
 @Component
 public class MyListener implements ApplicationListener<ContextRefreshedEvent>{
 	public static int i = 0;
@@ -21,6 +23,9 @@ public class MyListener implements ApplicationListener<ContextRefreshedEvent>{
 			String comments = "hello";
 			FileOutputStream out = new FileOutputStream(new File("D:/repository/projects-test/ssm/src/main/webapp/ApplicationInitOrFlushTimes.properties"));
 			p.store(out, comments );
+			//Ehcache缓存中存储数据
+			EhcacheUtil ehcacheUtil = EhcacheUtil.getInstance();
+			ehcacheUtil.put("cacheDemo","zhangsan","张三");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
