@@ -56,7 +56,8 @@
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>  
  -->
 
-	 <mvc:annotation-driven>
+<!-- json 转换器 -->
+<!-- 	 <mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -69,16 +70,30 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-
+	 -->
+	<mvc:annotation-driven>
+     	<mvc:message-converters register-defaults="true">
+		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		      <property name="supportedMediaTypes">
+			      <list>
+			      	<value>text/plain;charset=UTF-8</value>
+			      	<value>application/json;charset=UTF-8</value>
+			      	<value>text/html;charset=UTF-8</value>
+			      </list>
+		      </property>
+		    </bean>
+   		</mvc:message-converters>
+     </mvc:annotation-driven>
+     
 	<!-- 访问拦截 -->
 <!-- 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/**" />
-			<bean class="com.fh.interceptor.LoginHandlerInterceptor" />
+			<bean class="" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/api/**" />
-			<ref bean="authorizationInterceptor" />
+			<ref bean="" />
 		</mvc:interceptor>
 	</mvc:interceptors> -->
 

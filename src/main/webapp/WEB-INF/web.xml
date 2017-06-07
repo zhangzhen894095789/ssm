@@ -3,7 +3,14 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1" metadata-complete="true">
 
-
+	<filter>
+		<filter-name>JsonFilter</filter-name>
+		<filter-class>me.zhangzhen.filter.JsonFilter</filter-class>
+	</filter>
+	<!-- <filter-mapping>
+		<filter-name>JsonFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
 	<!-- spring中文乱码过滤器 -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
@@ -21,7 +28,7 @@
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- 修改servlet版本为3.1 -->
 	<!-- 配置DispatcherServlet -->
 	<servlet>

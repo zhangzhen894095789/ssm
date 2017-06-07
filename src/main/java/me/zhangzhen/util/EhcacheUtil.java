@@ -1,4 +1,4 @@
-package me.zhangzhen.common.util;
+package me.zhangzhen.util;
 
 import java.net.URL;
 import java.util.List;
@@ -63,5 +63,4 @@ public class EhcacheUtil {
 	  List<String> list = cache.getKeys();
 	   return list;
    }
-    
 }

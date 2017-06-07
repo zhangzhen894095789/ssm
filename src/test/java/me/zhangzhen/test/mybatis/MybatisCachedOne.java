@@ -1,11 +1,35 @@
 package me.zhangzhen.test.mybatis;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.junit.Before;
 /**
  * mybatis默认开启的一级缓存测试
  */
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import me.zhangzhen.domian.User;
+import me.zhangzhen.service.UserService;
+import me.zhangzhen.service.impl.UserServiceImpl;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring/spring-*.xml"})
 public class MybatisCachedOne {
+	
+//	@Resource
+	@Autowired
+	private UserService userService ;
+	
+	@Before
+	public void before(){
+		System.out.println("创建userService");
+	}
 	/**
 	 * 一级缓存区域是根据SqlSession为单位划分的。
 	 * 
@@ -23,7 +47,11 @@ public class MybatisCachedOne {
 	// 第二次查询直接去缓存中取，如果没有再发送生sql取数据库里拿
 	@Test
 	public void testSelect() {
-
+		List<User> findUsers = userService.findUsers();
+		System.out.println("findUsers执行了");
+		if (findUsers.size() > 0) {
+			System.out.println(findUsers);
+		}
 	}
 
 	// 增加 清空缓存
