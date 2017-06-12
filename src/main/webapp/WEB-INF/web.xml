@@ -2,15 +2,40 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1" metadata-complete="true">
+	
+	<!-- spring上下文监听器，加载项目运行所需的配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-*.xml</param-value>
+	</context-param>
 
-	<filter>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- <filter>
 		<filter-name>myFilter</filter-name>
 		<filter-class>me.zhangzhen.filter.MyFilter</filter-class>
-	</filter>
-	<!-- <filter-mapping>
-		<filter-name>JsonFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter> -->
+	
+	<!-- 修改servlet版本为3.1 -->
+	<!-- 配置DispatcherServlet -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置springMVC需要加载的配置文件 spring-dao.xml,spring-service.xml,spring-mvc.xml,spring-quartz.xml 
+			Mybatis - > spring -> springmvc -> quartz -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/mvc/spring-mvc.xml</param-value>
+		</init-param>
+		<!-- <load-on-startup>1</load-on-startup> -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 默认匹配所有的请求 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	<!-- spring中文乱码过滤器 -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
@@ -29,31 +54,52 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 修改servlet版本为3.1 -->
-	<!-- 配置DispatcherServlet -->
-	<servlet>
-		<servlet-name>springmvc</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- 配置springMVC需要加载的配置文件 spring-dao.xml,spring-service.xml,spring-mvc.xml,spring-quartz.xml 
-			Mybatis - > spring -> springmvc -> quartz -->
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-mvc.xml</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc</servlet-name>
-		<!-- 默认匹配所有的请求 -->
-		<url-pattern>/</url-pattern>
+		<!-- 方式2 与springmvc 集成 -->
+  	<!-- <servlet-mapping>
+	  <servlet-name>springmvc</servlet-name>
+	  <url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
+	 -->
 
-	<!-- spring上下文监听器，加载项目运行所需的配置文件 -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/spring-*.xml</param-value>
-	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	<!-- dwr设置 -->  
+	<welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  	</welcome-file-list>
+  	
+	<!-- 方式1  -->
+  <listener>  
+    <listener-class>org.directwebremoting.servlet.DwrListener</listener-class>  
+  </listener> 
 
+  <servlet>
+      <servlet-name>dwr</servlet-name>
+     <!--  version 2 *
+      <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class> -->
+      <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+      <init-param>
+          <param-name>debug</param-name>
+          <param-value>true</param-value>
+      </init-param>
+<!--       使用服务器反转AJAX  -->
+      <init-param>
+          <param-name>activeReverseAjaxEnabled</param-name>
+          <param-value>true</param-value>
+      </init-param>
+<!--       是能够从其他域请求true：开启； false：关闭 -->
+      <init-param>
+          <param-name>crossDomainSessionSecurity</param-name>
+          <param-value>false</param-value>
+      </init-param>
+   <!--    允许远程调用js -->
+      <init-param>
+          <param-name>allowScriptTagRemoting</param-name>
+          <param-value>true</param-value>
+      </init-param>
+
+      <load-on-startup>1</load-on-startup>  
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>dwr</servlet-name>
+      <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
 </web-app>
