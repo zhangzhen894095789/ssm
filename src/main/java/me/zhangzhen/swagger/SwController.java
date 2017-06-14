@@ -33,9 +33,9 @@ public class SwController {
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "测试方法", httpMethod = "POST")
-	public JsonResult testIgnoreAuth(HttpServletRequest req) {
+	public JsonResult testIgnoreAuth(HttpServletRequest req,@RequestParam String test) {
 		JsonResult result = new JsonResult();
-		String _token = req.getParameter("test");
-		return result;
+//		String _token = req.getParameter("test");
+		return result.ok().put("test", test);
 	}
 }
