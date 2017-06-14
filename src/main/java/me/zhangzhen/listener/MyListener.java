@@ -10,8 +10,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import me.zhangzhen.util.EhcacheUtil;
+import me.zhangzhen.web.BaseController;
 @Component
-public class MyListener implements ApplicationListener<ContextRefreshedEvent>{
+public class MyListener extends BaseController implements ApplicationListener<ContextRefreshedEvent>{
 	public static int i = 0;
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent evdnt) {
@@ -26,6 +27,8 @@ public class MyListener implements ApplicationListener<ContextRefreshedEvent>{
 			//Ehcache缓存中存储数据
 			EhcacheUtil ehcacheUtil = EhcacheUtil.getInstance();
 			ehcacheUtil.put("cacheDemo","zhangsan","张三");
+			logger.debug("缓存中存放数据。。。。。。。");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
