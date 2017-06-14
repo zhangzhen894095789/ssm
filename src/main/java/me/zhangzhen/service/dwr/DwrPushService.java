@@ -64,7 +64,7 @@ public class DwrPushService {
         final String autoMessage = message;
 
         Browser.withAllSessionsFiltered(new ScriptSessionFilter() {
-            Collection<User> allLoginUser = MyScriptSessionListener.getAllLoginUser();
+//            Collection<User> allLoginUser = MyScriptSessionListener.getAllLoginUser();
             public boolean match(ScriptSession session) {
                 if (session.getAttribute("admin") == null)//此处根据需求可以改
                     return false;

@@ -9,6 +9,8 @@
             <!-- 这个标签可以写也可以不写,不写默认的所有的方法-->
             <include method="onPageLoad"/>
             <include method="sendMessageAuto"/>
+            <include method="test"/>
+            <!-- <auth role="" method=""/> -->
         </create>
        <!--<convert converter="javax.faces.BigDecimal" match=""/>-->
     </allow>

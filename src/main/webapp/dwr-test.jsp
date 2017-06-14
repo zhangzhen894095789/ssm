@@ -24,8 +24,8 @@ $(document).ready(function(){
         // 此类即为根据java文件生成的js文件
         var data = document.getElementById("data").value;
 //        dwrPush.Send(data);
-//        dwrPush.onPageLoad("admin");
-        dwrPush.sendMessageAuto("admins","admins 验证通过！");
+        dwrPush.onPageLoad("admin");
+        dwrPush.sendMessageAuto("admin","admin 验证通过！");
     });
 });
 
