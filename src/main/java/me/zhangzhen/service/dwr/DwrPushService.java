@@ -66,16 +66,16 @@ public class DwrPushService {
         Browser.withAllSessionsFiltered(new ScriptSessionFilter() {
             Collection<User> allLoginUser = MyScriptSessionListener.getAllLoginUser();
             public boolean match(ScriptSession session) {
-//                if (session.getAttribute("admin") == null)
-//                    return false;
-//                else
-//                    return (session.getAttribute("admin")).equals(userId);
-                for (User u : allLoginUser) {
-                        if (u.getUserName().equals("admin") || u.getUserName().equals("test001"))
-                            return true;
-                        else continue;
-                }
-                return false;
+                if (session.getAttribute("admin") == null)//此处根据需求可以改
+                    return false;
+                else
+                    return (session.getAttribute("admin")).equals(userId);
+//                for (User u : allLoginUser) {
+//                        if (u.getUserName().equals("admin") || u.getUserName().equals("test001"))
+//                            return true;
+//                        else continue;
+//                }
+//                return false;
             }
         }, new Runnable() {
             private ScriptBuffer script = new ScriptBuffer();

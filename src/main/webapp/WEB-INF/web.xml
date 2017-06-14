@@ -61,18 +61,24 @@
 	</servlet-mapping> -->
 	
 
-	<!-- dwr设置 -->  
+
 	<welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   	</welcome-file-list>
-  	
+ <!-- dwr设置 由于 mvc整合时遇到一些未知问题此处改为xml配置 -->  	
 <!-- 方式1  --> 
 <servlet> 
 <servlet-name>dwr-invoker</servlet-name> 
 <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class> 
+<!-- 加载自定义的ScriptSessionManager 加载自定义的MyscriptSessionListener -->
+<init-param>
+	<param-name>org.directwebremoting.impl.DefaultScriptSessionManager</param-name>
+	<param-value>me.zhangzhen.service.dwr.MyScriptSeessionManager</param-value>
+</init-param>
+<!-- 开发阶段为true -->
 <init-param> 
 <param-name>debug</param-name> 
-<param-value>false</param-value> 
+<param-value>true</param-value> 
 </init-param> 
 
 <!-- DWR默认采用piggyback方式 --> 
@@ -84,12 +90,12 @@
 </init-param> 
 
 <!-- comet方式 --> 
-<!-- 
+<!-- ajax反转激活 -->
 <init-param> 
 <param-name>activeReverseAjaxEnabled</param-name> 
 <param-value>true</param-value> 
 </init-param> 
---> 
+
 
 <!-- polling方式：在comet方式的基础之上，再配置以下参数 --> 
 <!-- 

@@ -50,8 +50,8 @@
       <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
     </encoder>
   </appender>
-  <logger name="com.fh" level="DEBUG"/>
-  <logger name="org.directwebremoting" level="DEBUG"/>
+  <logger name="me.zhangzhen" level="DEBUG"/>
+  <logger name="org.directwebremoting" level="info"/>
   <logger name="org.springframework" level="ERROR" />
   <logger name="org.hibernate" level="ERROR" />
   <logger name="org.apache" level="ERROR" />
