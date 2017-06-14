@@ -16,6 +16,7 @@ $(document).ready(function(){
     // 页面加载的时候进行反转的激活
     /* dwr.engine.setActiveReverseAjax(true); */
     dwr.engine.setActiveReverseAjax(true) ;
+	//dwr.engine.setAsync(true);
 
     // 点击页面按钮的时候触发的方法
     $("#button").click(function(){
@@ -29,7 +30,7 @@ $(document).ready(function(){
 
 //////////////////////////////////////用于后台调取的函数
 function callback(msg){
-    //alert('test！');
+    alert("哈哈哈");
     $("#ul").html($("#ul").html()+"<br />"+msg);
 }
 </script>

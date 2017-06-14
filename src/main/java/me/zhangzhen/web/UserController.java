@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import me.zhangzhen.domian.User;
 import me.zhangzhen.mapper.UserMapper;
+import me.zhangzhen.util.DwrPush;
 
 
 @Controller
@@ -19,6 +20,7 @@ public class UserController {
 	@RequestMapping(value = "/findUsers")
     @ResponseBody
     public List<User> findUsers(){
+		DwrPush.Send("查询用户");
 		List<User> findUsers = userMapper.findUsers();
 		System.out.println(findUsers);
         return findUsers;

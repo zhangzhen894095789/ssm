@@ -8,20 +8,20 @@
             <!-- 这个标签可以写也可以不写,不写默认的所有的方法-->
             <include method="Send"/>
         </create>
+        
+        <create creator="new" javascript="DWRHelper">  
+	    <param name="class" value="me.zhangzhen.util.DWRHelper"/>  
+	    <include method="addMessage"/>  
+	    <include method="test"/>  
+		</create>  
+  
         <!-- creator="spring" 从spring中取得bean creator="new" 通过new的方法创建bean -->
-        <create creator="spring" javascript="userController">
-            <param name="beanName" value="userController"></param>
-            <!-- 这个标签可以写也可以不写,不写默认的所有的方法-->
-            <include method="findUsers"/>
-        </create>
         <!-- <filter class=""></filter> -->
     </allow>
     
-   <!--  <signatures>
-    
-    </signatures>
-     -->
-    
+	<convert converter="bean" match="me.zhangzhen.domian.Message">  
+	    <param name="include" value="id,text"/>  
+	</convert>  
    <!-- creator 属性必须的 指定使用那个创建者
    		new：哪个使用Java'new'运算符。
 		static：使用'getInstance（）'方法（默认情况下）来获取类的一个实例。
@@ -33,18 +33,13 @@
 		页面流：可以访问从蜂巢或Weblogic的一个页面流。（V1.1 +）
 		ejb3：一个实验创建者来访问EJB3会话bean。该代码在经过更多测试之前不应被视为生产质量，并且具有官方维护者。（V2.0 +）
 		
-		
 		JavaScript属性是必需的 - 它会在浏览器中给您新创建的对象一个名称。你应该避免使用JavaScript保留字
 		
 		scope属性与servlet规范定义的scope属性大致相同。它允许您指定可用的bean。选项是“应用程序”，“会话”，“请求”，“页面”和附加范围“脚本”。这些值中的前4个应该是Servlet和JSP开发人员所熟悉的。“脚本”范围允许您具有类似于绑定到页面中而不是Cookie中的ID的HTTP会话。
 		范围属性是可选的。它默认为“页面” The options are "application", "session", "request", "page" and an additional scope "script".
-		
 		<exclude/> <include/>包含和排除元素允许创建者限制对类方法的访问。创建者应该指定包含元素的列表（这意味着默认策略是拒绝）或排除元素的列表（这意味着默认策略是允许访问）
 		
 	-->
-	
-	<!-- 自定义创建者 -->
-	<!-- <init>
-		<creator class="" id=""/>
-	</init> -->
+
+
 </dwr>

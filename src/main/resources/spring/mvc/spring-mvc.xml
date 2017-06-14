@@ -1,73 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.directwebremoting.org/schema/spring-dwr    
         http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd"
-        default-autowire="byName"
-		>
+	default-autowire="byName">
 
-    <!-- 配置SpringMVC -->
-    <!-- 1.开启SpringMVC注解模式 -->
-    <!-- 简化配置：
-        (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter
-        (2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持
-    -->
-    <mvc:annotation-driven />
+	<!-- 配置SpringMVC -->
+	<!-- 1.开启SpringMVC注解模式 -->
+	<!-- 简化配置： (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter 
+		(2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 -->
+	<mvc:annotation-driven />
 
-    <!-- 2.静态资源默认servlet配置
-        (1)加入对静态资源的处理：js,gif,png
-        (2)允许使用"/"做整体映射
-     -->
-    <mvc:default-servlet-handler/>
-	<context:property-placeholder location="classpath:application_ssm.properties"/>
+	<!-- 2.静态资源默认servlet配置 (1)加入对静态资源的处理：js,gif,png (2)允许使用"/"做整体映射 -->
+	<mvc:default-servlet-handler />
+	<context:property-placeholder location="classpath:application_ssm.properties" />
 
-    <!-- 3.配置jsp 显示ViewResolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-        <property name="prefix" value="/WEB-INF/jsp/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
+	<!-- 3.配置jsp 显示ViewResolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
 
-    <!-- 4.扫描web相关的bean -->
-    <context:component-scan base-package="me.zhangzhen" />
-    
-    <!-- 加载相应的配置properties配置文件 -->
-       <bean id="appConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:application_ssm.properties</value>
-        </property>
-    </bean>
-    <!-- 另一种加载properties的方法 -->
-    <!-- <util:properties id="appConfig" location="classpath:application_admin.properties"/> -->  
-    
-    
+	<!-- 4.扫描web相关的bean -->
+	<context:component-scan base-package="me.zhangzhen" />
+
+	<!-- 加载相应的配置properties配置文件 -->
+	<bean id="appConfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location">
+			<value>classpath:application_ssm.properties</value>
+		</property>
+	</bean>
+	<!-- 另一种加载properties的方法 -->
+	<!-- <util:properties id="appConfig" location="classpath:application_admin.properties"/> -->
+
+
 	<!-- 对静态资源文件的访问 restful -->
-<!-- 	<mvc:resources mapping="/admin/**" location="/,/admin/" />
-	<mvc:resources mapping="/static/**" location="/,/static/" />
-	<mvc:resources mapping="/plugins/**" location="/,/plugins/" />
-	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" />
-	<mvc:resources mapping="/swagger/**" location="/,/swagger/" />  
-    <mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/"/>  
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>  
- -->
+	<!-- <mvc:resources mapping="/admin/**" location="/,/admin/" /> <mvc:resources 
+		mapping="/static/**" location="/,/static/" /> <mvc:resources mapping="/plugins/**" 
+		location="/,/plugins/" /> <mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" 
+		/> <mvc:resources mapping="/swagger/**" location="/,/swagger/" /> <mvc:resources 
+		mapping="/swagger-ui.html" location="classpath:/META-INF/resources/"/> <mvc:resources 
+		mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/> -->
 
-<!-- json 转换器 -->
-<!-- 	 <mvc:annotation-driven>
+	<!-- json 转换器 -->
+	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
+		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>application/json;charset=UTF-8</value> 
+		<value>text/html;charset=UTF-8</value> </list> </property> </bean> </mvc:message-converters> 
+		</mvc:annotation-driven> -->
+	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
+						<value>text/plain;charset=UTF-8</value>
 						<value>application/json;charset=UTF-8</value>
 						<value>text/html;charset=UTF-8</value>
 					</list>
@@ -75,32 +73,11 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	 -->
-	<mvc:annotation-driven>
-     	<mvc:message-converters register-defaults="true">
-		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-		      <property name="supportedMediaTypes">
-			      <list>
-			      	<value>text/plain;charset=UTF-8</value>
-			      	<value>application/json;charset=UTF-8</value>
-			      	<value>text/html;charset=UTF-8</value>
-			      </list>
-		      </property>
-		    </bean>
-   		</mvc:message-converters>
-     </mvc:annotation-driven>
-     
+
 	<!-- 访问拦截 -->
-<!-- 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**/**" />
-			<bean class="" />
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/api/**" />
-			<ref bean="" />
-		</mvc:interceptor>
-	</mvc:interceptors> -->
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**/**" /> 
+		<bean class="" /> </mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/api/**" 
+		/> <ref bean="" /> </mvc:interceptor> </mvc:interceptors> -->
 
 
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
@@ -116,39 +93,52 @@
 			<value>utf-8</value>
 		</property>
 	</bean>
-	
-	
-	<!-- dwr 与springmvc集成 -->
-	<context:annotation-config />  
-      
-<!-- 注意这里新增加的dwr tag, 为使其生效，文件头中要声明namespace -->  
-    <dwr:configuration />  
-    <dwr:annotation-config />
-	<dwr:annotation-scan base-package="me.zhangzhen.util" scanDataTransferObject="true" />
-      
-<!--     部署项目时, 请把debug设为false   -->
-    <dwr:controller id="dwrController" debug="true" >
-    	<dwr:config-param name="allowScriptTagRemoting" value="true" />
-		<dwr:config-param name="crossDomainSessionSecurity" value="false" />
-    </dwr:controller>  
 
-      
-<!--     order值越小, 优先级越高   -->
- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">  
-        <property name="order" value="1" />  
-    </bean>  
-    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">  
-        <property name="order" value="2" />  
-    </bean>
-    
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
-     <property name="order" value="3" />   
-      <property value="true" name="alwaysUseFullPath"></property>  
-      <property name="mappings">  
-        <props>  
-          <prop key="/dwr/**">dwrController</prop>  
-        </props>  
-     </property>   
-    </bean>
-	
+
+	<!-- dwr 与springmvc 集成 -->
+	<!-- <context:annotation-config /> -->
+
+	<!-- 注意这里新增加的dwr tag, 为使其生效，文件头中要声明namespace -->
+	<!-- <dwr:configuration />
+	<dwr:annotation-config />
+	<dwr:annotation-scan base-package="me.zhangzhen"
+		scanDataTransferObject="true" scanRemoteProxy="true" /> -->
+
+	<!-- 部署项目时, 请把debug设为false -->
+	<!-- <dwr:controller id="dwrController" debug="true"> -->
+		<!-- 允许远程连接js 默认为true -->
+	<!-- 	<dwr:config-param name="allowScriptTagRemoting"
+			value="true" /> -->
+		<!-- 支持跨域访问，安全考虑 false -->
+	<!-- 	<dwr:config-param name="crossDomainSessionSecurity"
+			value="false" />
+		<dwr:config-param name="pollAndCometEnabled" value="true"/> -->
+		<!-- 为了启用JSON / JSONP，您必须将jsonpEnabled init-param添加到web.xml中的DWR servlet定义中。此参数激活JSON / JSONP服务。 -->
+		<!-- <dwr:config-param name="jsonpEnabled" value="true"/> -->
+		<!--comet方式 当服务端建立和浏览器的连接，将页面内容发送到浏览器之后，对应的连接并不关闭，只是暂时挂起。如果后面有什么新的内容需要推送到客户端的时候直接通过前面挂起的连接再次传送数据。 
+			服务器所能提供的连接数目是一定的，在大量的挂起的连接没有关闭的情况下，可能造成新的连接请求不能接入，从而影响到服务质量。 -->
+<!-- 		<dwr:config-param name="maxHitsPerSecond" value="10"/>
+	</dwr:controller>
+ -->
+
+	<!-- order值越小, 优先级越高 设置注解映射的优先级 -->
+	<!-- <bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="order" value="1" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order" value="2" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order" value="3" />
+		<property value="true" name="alwaysUseFullPath"></property>
+		<property name="mappings">
+			<props>
+				<prop key="/dwr/**">dwrController</prop>
+			</props>
+		</property>
+	</bean> -->
+
 </beans>
