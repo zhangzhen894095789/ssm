@@ -16,12 +16,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger配置
- * @author cdf
  *
  */
 @EnableWebMvc  
 @EnableSwagger2  
-@ComponentScan(basePackages = {"com.fh.controller.swagger"})  
+@ComponentScan(basePackages = {"me.zhengzhen.swagger"})  
 @Configuration
 public class SwaggerConfig extends WebMvcConfigurationSupport{
 	
@@ -30,16 +29,16 @@ public class SwaggerConfig extends WebMvcConfigurationSupport{
 	        return new Docket(DocumentationType.SWAGGER_2)  
 	                .apiInfo(apiInfo())  
 	                .select()  
-	                .apis(RequestHandlerSelectors.basePackage("com.fh.controller.swagger"))  
+	                .apis(RequestHandlerSelectors.basePackage("me.zhangzhen.swagger"))  
 	                .paths(PathSelectors.any())  
 	                .build();  
 	    }  
 	  
 	    private ApiInfo apiInfo() {  
 	        return new ApiInfoBuilder()  
-	                .title("幸福钱庄后台管理系统构建RESTful APIs")  
+	                .title("未来星球网络APIs")  
 	                .termsOfServiceUrl("www.xxxcom")  
-	                .contact("by-shanlin")  
+	                .contact("by-zhangzhen")  
 	                .version("1.1")  
 	                .build();  
 	    }  
