@@ -16,7 +16,6 @@ import freemarker.template.TemplateException;
 
 /**
  * 
- * 创建人：FH 创建时间：2015年2月8日
  * @version
  */
 public class Freemarker {
