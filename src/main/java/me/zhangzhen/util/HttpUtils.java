@@ -28,6 +28,7 @@ public class HttpUtils {
         BufferedReader in = null;// 读取响应输入流  
         StringBuffer sb = new StringBuffer();// 存储参数  
         String params = "";// 编码之后的参数
+        java.net.HttpURLConnection httpConn = null;
         try {
             // 编码请求参数  
             if(parameters.size()==1){
@@ -51,8 +52,12 @@ public class HttpUtils {
             // 创建URL对象  
             java.net.URL connURL = new java.net.URL(full_url);  
             // 打开URL连接  
-            java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) connURL  
+            httpConn = (java.net.HttpURLConnection) connURL  
                     .openConnection();  
+            //设置连接超时时间
+//            httpConn.setConnectTimeout(60000);
+            //设置读取主机数据超时时间
+//            httpConn.setReadTimeout(6000);
             // 设置通用属性  
             httpConn.setRequestProperty("Accept", "*/*");  
             httpConn.setRequestProperty("Connection", "Keep-Alive");  
@@ -80,7 +85,10 @@ public class HttpUtils {
             try {  
                 if (in != null) {  
                     in.close();  
-                }  
+                }
+                if(httpConn != null){
+                	httpConn.disconnect();
+                }
             } catch (IOException ex) {  
                 ex.printStackTrace();  
             }  
@@ -103,6 +111,7 @@ public class HttpUtils {
         PrintWriter out = null;  
         StringBuffer sb = new StringBuffer();// 处理请求参数  
         String params = "";// 编码之后的参数  
+        java.net.HttpURLConnection httpConn = null;
         try {  
             // 编码请求参数  
             if (parameters.size() == 1) {  
@@ -124,7 +133,7 @@ public class HttpUtils {
             // 创建URL对象  
             java.net.URL connURL = new java.net.URL(url);  
             // 打开URL连接  
-            java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) connURL  
+            httpConn = (java.net.HttpURLConnection) connURL  
                     .openConnection();  
             // 设置通用属性  
             httpConn.setRequestProperty("Accept", "*/*");  
@@ -157,7 +166,10 @@ public class HttpUtils {
                 }  
                 if (in != null) {  
                     in.close();  
-                }  
+                }
+                if (httpConn != null){
+                	httpConn.disconnect();
+                }
             } catch (IOException ex) {  
                 ex.printStackTrace();  
             }  
