@@ -1,4 +1,4 @@
-package me.zhangzhen.util;
+package me.zhangzhen.util.pinyin4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
