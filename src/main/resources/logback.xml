@@ -51,7 +51,7 @@
     </encoder>
   </appender>
   <logger name="me.zhangzhen" level="DEBUG"/>
-  <logger name="org.directwebremoting" level="debug"/>
+  <logger name="org.directwebremoting" level="info"/>
   <logger name="org.springframework" level="ERROR" />
   <logger name="org.hibernate" level="ERROR" />
   <logger name="org.apache" level="ERROR" />
