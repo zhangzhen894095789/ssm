@@ -13,19 +13,15 @@ public class TestListener1 implements MessageListener {
 	
 	@Autowired
 	private AmqpTemplate amqpTemplate;
-
+	//监听到消息发送给test2队列
 	@Override
 	public void onMessage(Message message) {
-		// TODO Auto-generated method stub
-		
+
 		try {
 			//监听并获取到队列的消息
 			System.out.println("testListener1启动！！。。。。                             接收到的消息：   " + new String(message.getBody(),"utf-8"));
-			MessageProperties messageProperties = new MessageProperties();
-			messageProperties.setConsumerQueue("test2");
 			//给队列test2发送消息
-			Message message2 = new Message("testListener2发送来的消息！".getBytes(), messageProperties);
-			amqpTemplate.convertAndSend( message2);
+			amqpTemplate.convertAndSend( "test2","来自testListener1的消息");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

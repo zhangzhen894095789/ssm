@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class TestListener2 implements MessageListener{
 	@Autowired
 	private AmqpTemplate amqpTemplate;
+	//监听到消息发送给test1队列
 	@Override
 	public void onMessage(Message message) {
 		// TODO Auto-generated method stub

@@ -50,9 +50,11 @@
         rabbit:direct-exchange：定义exchange模式为direct，消息与一个特定的路由键完全匹配，才会转发。 
         rabbit:binding：设置消息queue匹配的key 
      -->
+     <!-- direct只给跟自己绑定的队列发送消息  fanout 会给所有的队列发送消息 -->
     <rabbit:direct-exchange name="MyDirect1"  durable="true" auto-delete="false" id="MyDirect1">
         <rabbit:bindings>
             <rabbit:binding queue="test1" key="test1"/>
+            <rabbit:binding queue="test2"/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
     
