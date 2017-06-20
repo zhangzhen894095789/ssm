@@ -21,7 +21,7 @@ public class TestListener1 implements MessageListener {
 			//监听并获取到队列的消息
 			System.out.println("testListener1启动！！。。。。                             接收到的消息：   " + new String(message.getBody(),"utf-8"));
 			//给队列test2发送消息
-			amqpTemplate.convertAndSend( "test2","来自testListener1的消息");
+//			amqpTemplate.convertAndSend( "test2","来自testListener1的消息");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
