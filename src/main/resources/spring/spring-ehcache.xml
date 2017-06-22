@@ -16,7 +16,7 @@
      <cache:annotation-driven />
 
  <!-- Do the component scan path -->
- <context:component-scan base-package="me.zhangzhen" />
+<!--  <context:component-scan base-package="me.zhangzhen" /> -->
 
  <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
   p:cacheManager-ref="ehcache"/>

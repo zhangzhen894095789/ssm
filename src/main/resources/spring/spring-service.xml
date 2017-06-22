@@ -12,6 +12,7 @@
 	http://www.springframework.org/schema/jdbc
 	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
     <!-- 扫描service包下所有使用注解的类型 -->
-    <context:component-scan base-package="me.zhangzhen" />
+    <context:component-scan base-package="me.zhangzhen" use-default-filters="false" >
+    </context:component-scan>
 
 </beans>

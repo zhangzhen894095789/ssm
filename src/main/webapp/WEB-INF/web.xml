@@ -6,7 +6,7 @@
 	<!-- spring上下文监听器，加载项目运行所需的配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/*</param-value>
+		<param-value>classpath:spring/*.xml</param-value>
 	</context-param>
 
 	<listener>
@@ -27,6 +27,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring/spring-mvc.xml</param-value>
 		</init-param>
+		<!-- web.xml 配置 handler 找不到抛异常 否则 自定义全局的mvc异常拦截拦截不到404 -->
 		<init-param>
             <param-name>throwExceptionIfNoHandlerFound</param-name>
             <param-value>true</param-value>

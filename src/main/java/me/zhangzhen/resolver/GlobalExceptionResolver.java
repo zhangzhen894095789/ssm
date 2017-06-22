@@ -7,26 +7,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhangzhen.util.R;
-import me.zhangzhen.util.exception.MyException;
 
+import me.zhangzhen.util.R;
+/**
+ * spring mvc全局异常处理 @ControllerAdvice注解 被mvc扫描到 该注解下的类 @ExceptiionHandler 说明被拦截的异常 方法内 对拦截到的异常进行处理
+ * @author dell、
+ *
+ */
 @ControllerAdvice
 public class GlobalExceptionResolver extends DefaultHandlerExceptionResolver {
 
 	  @ExceptionHandler(value = Exception.class)
 	    public ModelAndView defaultErrorHandler(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 	        String url = request.getServletPath();
-	        if (url.startsWith("/aaa")) {
+	        if (url.startsWith("/")) {
 	            if (ex instanceof HttpRequestMethodNotSupportedException) {
 	                setResponseParam(response, 405, "请求方式错误！");
 	                return null;

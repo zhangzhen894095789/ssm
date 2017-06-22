@@ -17,10 +17,11 @@
 	<!-- 1.开启SpringMVC注解模式 -->
 	<!-- 简化配置： (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter 
 		(2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 -->
-	<mvc:annotation-driven />
 
 	<!-- 2.静态资源默认servlet配置 (1)加入对静态资源的处理：js,gif,png (2)允许使用"/"做整体映射 -->
-	<mvc:default-servlet-handler />
+	<!-- 影响@ControllerAdvice注解的作用 -->
+	<!-- <mvc:default-servlet-handler /> -->
+	<context:annotation-config/>  
 	<context:property-placeholder location="classpath:properties/application_all.properties" />
 
 	<!-- 3.配置jsp 显示ViewResolver -->
@@ -33,9 +34,10 @@
 	</bean>
 
 	<!-- 4.扫描web相关的bean -->
-	<context:component-scan base-package="me.zhangzhen" >
-	</context:component-scan>
-
+	<context:component-scan base-package="me.zhangzhen" use-default-filters="false">
+       <!--  <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> -->
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
 	<!-- 加载相应的配置properties配置文件 -->
 	<bean id="appConfig"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
