@@ -33,7 +33,8 @@
 	</bean>
 
 	<!-- 4.扫描web相关的bean -->
-	<context:component-scan base-package="me.zhangzhen" />
+	<context:component-scan base-package="me.zhangzhen" >
+	</context:component-scan>
 
 	<!-- 加载相应的配置properties配置文件 -->
 	<bean id="appConfig"

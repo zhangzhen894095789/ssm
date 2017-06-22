@@ -9,10 +9,6 @@
       http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
 	<rabbit:connection-factory id="MyConnectionFactory" username="guest" password="guest" host="192.168.71.131" port="5672" virtual-host="/" />
-	<!-- <rabbit:connection-factory id="MyConnectionFactory" username="#{appConfig['mq.username']}" password="#{appConfig['mq.password']}" host="#{appConfig['mq.host']}" port="#{appConfig['mq.port']}" virtual-host="#{appConfig['mq.vhost']}" /> -->
-	<!-- <rabbit:connection-factory id="MyConnectionFactory" username="admin" password="admin" host="10.1.20.104" port="5672" virtual-host="/" /> -->
-    <!--定义rabbit template用于数据的接收和发送 -->
-    <!-- <rabbit:template id="amqpTemplate" connection-factory="MyConnectionFactory" exchange="MyFanout1"  message-converter="jsonMessageConverter"/> -->
     <rabbit:template id="amqpTemplate" connection-factory="MyConnectionFactory" exchange="MyDirect1"  message-converter="jsonMessageConverter"/>
 
     <!-- 消息对象json转换类 -->
@@ -54,7 +50,7 @@
     <rabbit:direct-exchange name="MyDirect1"  durable="true" auto-delete="false" id="MyDirect1">
         <rabbit:bindings>
             <rabbit:binding queue="test1" key="test1"/>
-            <rabbit:binding queue="test2"/>
+            <!-- <rabbit:binding queue="test2"/> -->
         </rabbit:bindings>
     </rabbit:direct-exchange>
     

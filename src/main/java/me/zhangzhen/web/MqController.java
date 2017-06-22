@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MqController {
 
-	@Autowired
-	private AmqpTemplate amqpTemplate;
+//	@Autowired
+//	private AmqpTemplate amqpTemplate;
 	@RequestMapping("/sendMsg/{msg}")
 	public String send(@PathVariable("msg")String msg){
 		String result = "";
-		amqpTemplate.convertAndSend("hahaha");
+//		amqpTemplate.convertAndSend("hahaha");
 		return result;
 	}
 }

@@ -108,12 +108,12 @@ public class MailSender  {
         
     	//这个类主要是设置邮件   
 	     MailSenderConfig mailInfo = new MailSenderConfig();    
-	     mailInfo.setMailServerHost("smtp.qq.com");    
+	     mailInfo.setMailServerHost("smtp.163.com");    
 	     mailInfo.setMailServerPort("25");    
 	     mailInfo.setValidate(true);    
-	     mailInfo.setUserName("itfather@1b23.com");    
-	     mailInfo.setPassword("tttt");//您的邮箱密码    
-	     mailInfo.setFromAddress("itfather@1b23.com");    
+	     mailInfo.setUserName("zzwwy@163.com");    
+	     mailInfo.setPassword("894095zz");//您的邮箱密码    
+	     mailInfo.setFromAddress("zzwwy@163.com");    
 	     mailInfo.setToAddress(tomail);    
 	     mailInfo.setSubject(title);    
 	     mailInfo.setContent(content);    

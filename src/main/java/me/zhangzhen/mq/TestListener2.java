@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component("testListener2")
 public class TestListener2 implements MessageListener{
-	@Autowired
-	private AmqpTemplate amqpTemplate;
+//	@Autowired
+//	private AmqpTemplate amqpTemplate;
 	//监听到消息发送给test1队列
 	@Override
 	public void onMessage(Message message) {
@@ -23,7 +23,7 @@ public class TestListener2 implements MessageListener{
 			e.printStackTrace();
 		}
 		//给指定的队列发送消息
-		amqpTemplate.convertAndSend("test1", "来自testListener2的消息");
+//		amqpTemplate.convertAndSend("test1", "来自testListener2的消息");
 	}
 
 }

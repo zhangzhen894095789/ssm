@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component("testListener1")
 public class TestListener1 implements MessageListener {
 	
-	@Autowired
-	private AmqpTemplate amqpTemplate;
+//	@Autowired
+//	private AmqpTemplate amqpTemplate;
 	//监听到消息发送给test2队列
 	@Override
 	public void onMessage(Message message) {

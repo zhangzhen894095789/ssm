@@ -34,7 +34,7 @@ public class SysLogAspect extends BaseController {
 	// @Autowired
 	// private SysLogMapper sysLogMapper;
 
-	@Pointcut("@annotation(com.fh.annotation.SysLog)")
+	@Pointcut("@annotation(me.zhangzhen.annotation.SysLog)")
 	public void logPointCut() {
 
 	}

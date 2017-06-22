@@ -14,11 +14,14 @@
 			   ">
 			   
 	<!-- spring的属性加载器，加载properties文件中的属性 -->  
-<!-- 	 <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="location">  
-            <value>classpath:properties/application_all.properties</value>  
-        </property>  
-    </bean>   -->
+<!-- spring的属性加载器，加载properties文件中的属性 -->  
+	<bean id="propertyConfigurer"  
+	    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="location">  
+	        <value>/WEB-INF/classes/properties/application_all.properties</value>  
+	    </property>  
+	    <property name="fileEncoding" value="utf-8" />  
+	</bean>  
    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 	  <property name="maxTotal" value="10" />
 	  <property name="maxIdle" value="10" />

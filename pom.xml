@@ -504,7 +504,7 @@
 			<version>2.6.1</version>
 		</dependency>
 
-		<!-- swagger-ui为项目提供api展示及测试的界面 -->
+		<!-- swagger-ui界面 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
