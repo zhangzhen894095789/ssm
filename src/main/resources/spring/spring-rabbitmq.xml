@@ -29,8 +29,8 @@
         auto_delete: 当所有消费客户端连接断开后，是否自动删除队列
     -->
      
-     <rabbit:queue id="saveBorrow2" name="saveBorrow2" durable="true" auto-delete="false" exclusive="false" />
-     <rabbit:queue id="borrowStatus2" name="borrowStatus2" durable="true" auto-delete="false" exclusive="false" />
+     <rabbit:queue id="" name="" durable="true" auto-delete="false" exclusive="false" />
+     <rabbit:queue id="" name="" durable="true" auto-delete="false" exclusive="false" />
      
     
    
@@ -41,7 +41,7 @@
      -->  
     <rabbit:fanout-exchange name="MyFanout1"  durable="true" auto-delete="false" id="MyFanout1">
         <rabbit:bindings>
-            <rabbit:binding queue="borrowStatus2"/>
+            <rabbit:binding queue=""/>
         </rabbit:bindings>
     </rabbit:fanout-exchange>
     
@@ -52,7 +52,7 @@
      -->
     <rabbit:direct-exchange name="MyDirect1"  durable="true" auto-delete="false" id="MyDirect1">
         <rabbit:bindings>
-            <rabbit:binding queue="saveBorrow2" key="saveBorrow2"/>
+            <rabbit:binding queue="" key=""/>
         </rabbit:bindings>
     </rabbit:direct-exchange>
     
@@ -63,7 +63,8 @@
     -->
 
     <rabbit:listener-container connection-factory="MyConnectionFactory" acknowledge="auto">
-        <!--  <rabbit:listener queues="saveBorrow2" ref="saveBorrowQueueListenter"/> -->
-       	 <rabbit:listener queues="borrowStatus2 " ref="borrowStatusQueueListenter"/>	
+        <!--  <rabbit:listener queues="" ref=""/> -->
+       	 <rabbit:listener queues=" " ref=""/>	
     </rabbit:listener-container> 
+    
 </beans>
