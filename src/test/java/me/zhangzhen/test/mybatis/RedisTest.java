@@ -17,7 +17,7 @@ public class RedisTest{
 	@Before
 	public void connet(){
 		try {
-			jedis = new Jedis("192.168.71.131");
+			jedis = new Jedis("192.168.71.130");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("connect failed!");
@@ -66,7 +66,7 @@ public class RedisTest{
 	}
 	
 	public static void main(String[] args) {
-		Jedis jedis = new Jedis("192.168.71.131");
+		Jedis jedis = new Jedis("192.168.71.130");
 		Long result = jedis.publish("cheat", "hello redis message !" + new Date().toString());
 		
 	}
