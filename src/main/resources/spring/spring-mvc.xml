@@ -39,12 +39,12 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 	<!-- 加载相应的配置properties配置文件 -->
-	<bean id="appConfig"
+	<!-- <bean id="appConfig"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="location">
 			<value>classpath:application_ssm.properties</value>
 		</property>
-	</bean>
+	</bean> -->
 	<!-- 另一种加载properties的方法 -->
 	<!-- <util:properties id="appConfig" location="classpath:application_admin.properties"/> -->
 

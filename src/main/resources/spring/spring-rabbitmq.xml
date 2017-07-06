@@ -8,7 +8,7 @@
       http://www.springframework.org/schema/rabbit
       http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
-	<rabbit:connection-factory id="MyConnectionFactory" username="guest" password="guest" host="192.168.71.131" port="5672" virtual-host="/" />
+	<rabbit:connection-factory id="MyConnectionFactory" username="guest" password="guest" host="192.168.71.130" port="5672" virtual-host="/" />
     <rabbit:template id="amqpTemplate" connection-factory="MyConnectionFactory" exchange="MyDirect1"  message-converter="jsonMessageConverter"/>
 
     <!-- 消息对象json转换类 -->
