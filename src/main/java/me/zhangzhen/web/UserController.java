@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import me.zhangzhen.domian.User;
 import me.zhangzhen.mapper.UserMapper;
 import me.zhangzhen.service.dwr.DwrPushService;
+import me.zhangzhen.util.datasource.DBTypeEnum;
+import me.zhangzhen.util.datasource.DbContextHolder;
 
 
 @Controller
@@ -21,6 +23,8 @@ public class UserController {
     @ResponseBody
     public List<User> findUsers(){
 		DwrPushService.sendMessageAuto("", "查询用户");
+		//使用动态数据源
+		DbContextHolder.setDbType(DBTypeEnum.two);
 		List<User> findUsers = userMapper.findUsers();
 		System.out.println(findUsers);
         return findUsers;

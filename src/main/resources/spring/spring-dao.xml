@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
@@ -14,129 +12,127 @@
 	http://www.springframework.org/schema/jdbc 
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop.xsd
-	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"
-	>
-    <!-- 配置整合mybatis过程 -->
-    <!-- 1.配置数据库相关参数properties的属性：${url} -->
-    <context:property-placeholder location="classpath:jdbc.properties" />
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+	<!-- 配置整合mybatis过程 -->
+	<!-- 1.配置数据库相关参数properties的属性：${url} -->
+	<!-- <context:property-placeholder location="classpath:jdbc.properties" 
+		/> -->
 	<context:component-scan base-package="me.zhangzhen">
 	</context:component-scan>
-    <!-- 2.数据库连接池 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!-- 配置连接池属性 -->
-        <property name="driverClass" value="${jdbc.driver}" />
-        <property name="jdbcUrl" value="${jdbc.url}" />
-        <property name="user" value="${driverClassName}" />
-        <property name="password" value="${jdbc.password}" />
+	<!-- 2.数据库连接池 -->
 
-        <!-- c3p0连接池的私有属性 -->
-        <property name="maxPoolSize" value="20" />
-        <property name="minPoolSize" value="10" />
-        <!-- 关闭连接后不自动commit -->
-        <property name="autoCommitOnClose" value="false" />
-        <!-- 获取连接超时时间 -->
-        <property name="checkoutTimeout" value="10000" />
-        <!-- 当获取连接失败重试次数 -->
-        <property name="acquireRetryAttempts" value="2" />
-    </bean>
+	<bean id="dataSource" class="me.zhangzhen.util.datasource.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="dataSource_one" value-ref="dataSource_one" />
+				<entry key="dataSource_two" value-ref="dataSource_two" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSource_one" />
+	</bean>
+
+	<bean id="dataSource_one" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 配置连接池属性 -->
+		<property name="driverClass" value="${driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- c3p0连接池的私有属性 -->
+		<property name="maxPoolSize" value="20" />
+		<property name="minPoolSize" value="10" />
+		<!-- 关闭连接后不自动commit -->
+		<property name="autoCommitOnClose" value="false" />
+		<!-- 获取连接超时时间 -->
+		<property name="checkoutTimeout" value="10000" />
+		<!-- 当获取连接失败重试次数 -->
+		<property name="acquireRetryAttempts" value="2" />
+	</bean>
+	
+	<bean id="dataSource_two" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 配置连接池属性 -->
+		<property name="driverClass" value="${driverClassName2}" />
+		<property name="jdbcUrl" value="${jdbc.url2}" />
+		<property name="user" value="${jdbc.username2}" />
+		<property name="password" value="${jdbc.password2}" />
+
+		<!-- c3p0连接池的私有属性 -->
+		<property name="maxPoolSize" value="20" />
+		<property name="minPoolSize" value="10" />
+		<!-- 关闭连接后不自动commit -->
+		<property name="autoCommitOnClose" value="false" />
+		<!-- 获取连接超时时间 -->
+		<property name="checkoutTimeout" value="10000" />
+		<!-- 当获取连接失败重试次数 -->
+		<property name="acquireRetryAttempts" value="2" />
+	</bean>
 
 	<!-- 阿里 druid数据库连接池 -->
-<!-- 	<bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource"
-		destroy-method="close">
-		数据库基本信息配置
-		<property name="url" value="#{appConfig['jdbc.url']}" />
-		<property name="username" value="#{appConfig['jdbc.username']}" />
-		<property name="password" value="#{appConfig['jdbc.password']}" />
-		<property name="driverClassName" value="#{appConfig['jdbc.driverClassName']}" />
-		<property name="filters" value="#{appConfig['filters']}" />
-		最大并发连接数
-		<property name="maxActive" value="#{appConfig['maxActive']}" />
-		初始化连接数量
-		<property name="initialSize" value="#{appConfig['initialSize']}" />
-		配置获取连接等待超时的时间
-		<property name="maxWait" value="#{appConfig['maxWait']}" />
-		最小空闲连接数
-		<property name="minIdle" value="#{appConfig['minIdle']}" />
-		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-		<property name="timeBetweenEvictionRunsMillis" value="#{appConfig['timeBetweenEvictionRunsMillis']}" />
-		配置一个连接在池中最小生存的时间，单位是毫秒
-		<property name="minEvictableIdleTimeMillis" value="#{appConfig['minEvictableIdleTimeMillis']}" />
-		<property name="validationQuery" value="#{appConfig['validationQuery']}" />
-		<property name="testWhileIdle" value="#{appConfig['testWhileIdle']}" />
-		<property name="testOnBorrow" value="#{appConfig['testOnBorrow']}" />
-		<property name="testOnReturn" value="#{appConfig['testOnReturn']}" />
-		<property name="maxOpenPreparedStatements" value="#{appConfig['maxOpenPreparedStatements']}" />
-		打开removeAbandoned功能
-		<property name="removeAbandoned" value="#{appConfig['removeAbandoned']}" />
-		1800秒，也就是30分钟
-		<property name="removeAbandonedTimeout" value="#{appConfig['removeAbandonedTimeout']}" />
-		关闭abanded连接时输出错误日志
-		<property name="logAbandoned" value="#{appConfig['logAbandoned']}" />
-	</bean>
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
-				rollback-for="java.lang.Exception" />
-			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
-				rollback-for="java.lang.Exception" />
-			<tx:method name="update*" propagation="REQUIRED" read-only="false"
-				rollback-for="java.lang.Exception" />
-			<tx:method name="save*" propagation="REQUIRED" read-only="false"
-				rollback-for="java.lang.Exception" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-	事物处理
-	<aop:config>
-		<aop:pointcut id="pc" expression="execution(* me.zhangzhen.service..*(..))" />
-		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
-	</aop:config>
-	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource" 
+		destroy-method="close"> 数据库基本信息配置 <property name="url" value="#{appConfig['jdbc.url']}" 
+		/> <property name="username" value="#{appConfig['jdbc.username']}" /> <property 
+		name="password" value="#{appConfig['jdbc.password']}" /> <property name="driverClassName" 
+		value="#{appConfig['jdbc.driverClassName']}" /> <property name="filters" 
+		value="#{appConfig['filters']}" /> 最大并发连接数 <property name="maxActive" value="#{appConfig['maxActive']}" 
+		/> 初始化连接数量 <property name="initialSize" value="#{appConfig['initialSize']}" 
+		/> 配置获取连接等待超时的时间 <property name="maxWait" value="#{appConfig['maxWait']}" 
+		/> 最小空闲连接数 <property name="minIdle" value="#{appConfig['minIdle']}" /> 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 
+		<property name="timeBetweenEvictionRunsMillis" value="#{appConfig['timeBetweenEvictionRunsMillis']}" 
+		/> 配置一个连接在池中最小生存的时间，单位是毫秒 <property name="minEvictableIdleTimeMillis" value="#{appConfig['minEvictableIdleTimeMillis']}" 
+		/> <property name="validationQuery" value="#{appConfig['validationQuery']}" 
+		/> <property name="testWhileIdle" value="#{appConfig['testWhileIdle']}" /> 
+		<property name="testOnBorrow" value="#{appConfig['testOnBorrow']}" /> <property 
+		name="testOnReturn" value="#{appConfig['testOnReturn']}" /> <property name="maxOpenPreparedStatements" 
+		value="#{appConfig['maxOpenPreparedStatements']}" /> 打开removeAbandoned功能 
+		<property name="removeAbandoned" value="#{appConfig['removeAbandoned']}" 
+		/> 1800秒，也就是30分钟 <property name="removeAbandonedTimeout" value="#{appConfig['removeAbandonedTimeout']}" 
+		/> 关闭abanded连接时输出错误日志 <property name="logAbandoned" value="#{appConfig['logAbandoned']}" 
+		/> </bean> <tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> <tx:method name="delete*" propagation="REQUIRED" read-only="false" 
+		rollback-for="java.lang.Exception" /> <tx:method name="insert*" propagation="REQUIRED" 
+		read-only="false" rollback-for="java.lang.Exception" /> <tx:method name="update*" 
+		propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" 
+		/> <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" 
+		/> </tx:attributes> </tx:advice> <aop:aspectj-autoproxy proxy-target-class="true" 
+		/> 事物处理 <aop:config> <aop:pointcut id="pc" expression="execution(* me.zhangzhen.service..*(..))" 
+		/> <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" /> </aop:config> 
+		<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <property name="typeAliasesPackage" 
+		value="com.fh.model" /> <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property> 
+		<property name="mapperLocations" value="classpath:mybatis/*/*.xml"></property> 
+		</bean> <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
+		name="basePackage" value="me.zhangzhen.mapper" /> <property name="properties"> 
+		<value> mappers=tk.mybatis.mapper.common.Mapper IDENTITY=MYSQL notEmpty=true 
+		</value> </property> </bean> -->
+	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"> 
+		<constructor-arg ref="sqlSessionFactory" /> </bean> -->
+	<!-- 3.配置SqlSessionFactory对象 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据库连接池 -->
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.fh.model" />
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:mybatis/*/*.xml"></property>
+		<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- 扫描entity包 使用别名 -->
+		<property name="typeAliasesPackage" value="me.zhangzhen.domian" />
+		<!-- 扫描sql配置文件:mapper需要的xml文件 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 	</bean>
-	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+
+	<!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 注入sqlSessionFactory -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- 给出需要扫描Dao接口包 -->
 		<property name="basePackage" value="me.zhangzhen.mapper" />
-		<property name="properties">
-			<value>
-				mappers=tk.mybatis.mapper.common.Mapper
-				IDENTITY=MYSQL
-				notEmpty=true
-			</value>
-		</property>
-	</bean> -->
-	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean> -->
-    <!-- 3.配置SqlSessionFactory对象 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- 注入数据库连接池 -->
-        <property name="dataSource" ref="dataSource" />
-        <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
-        <property name="configLocation" value="classpath:mybatis-config.xml" />
-        <!-- 扫描entity包 使用别名 -->
-        <property name="typeAliasesPackage" value="me.zhangzhen.domian" />
-        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
-        <property name="mapperLocations" value="classpath:mapper/*.xml" />
-    </bean>
+	</bean>
 
-    <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 注入sqlSessionFactory -->
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-        <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="me.zhangzhen.mapper" />
-    </bean>
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 注入数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- 注入数据库连接池 -->
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <!-- 配置基于注解的声明式事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 配置基于注解的声明式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
