@@ -8,10 +8,5 @@ public interface UserService {
 	
 	List<User> findUsers();
 	
-	int createUser(User user);
-	
-	int updateUser(User user);
-	
-	int deleteUserById(Integer id);
 
 }

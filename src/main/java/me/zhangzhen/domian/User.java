@@ -2,7 +2,10 @@ package me.zhangzhen.domian;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+@TableName("user")
+public class User extends Model<User> implements Serializable {
 	private Integer id ;
 	private String userName;
 	private String password;
@@ -87,6 +90,15 @@ public class User implements Serializable {
 		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
+	}
+	/**
+	 * 指定主键
+	 * @return
+	 */
+	@Override
+	protected Serializable pkVal() {
+		// TODO Auto-generated method stub
+		return this.id;
 	}
 	
 }

@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%
+	//jsp中的java代码
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://" + request.getServerName()+ ":"+ request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首次环境搭建</title>
-<script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/dwr/engine.js'></script>
-<script type='text/javascript' src='/dwr/interface/dwrPush.js'></script>
+<base href="<%=basePath%>">
+<script type='text/javascript' src='<%=basePath%>dwr/util.js'></script>
+<script type='text/javascript' src='<%=basePath%>dwr/engine.js'></script>
+<script type='text/javascript' src='<%=basePath%>dwr/interface/dwrPush.js'></script>
 <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 <script>
 
@@ -38,7 +44,9 @@ function callback(msg){
     console.log(msg)
     arr.push(msg);
     $("#ul").html($("#ul").html()+"<br />"+msg);
-    $("#msg").html("<option >"+arr+"</option> <br/>");
+    for(var i = 0; i < arr.length;i++){
+    $("#msg").html("<option >"+arr[i]+"</option> ");
+    }
 }
 </script>
 </head>

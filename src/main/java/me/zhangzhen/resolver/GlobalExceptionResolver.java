@@ -30,21 +30,21 @@ public class GlobalExceptionResolver extends DefaultHandlerExceptionResolver {
 	        String url = request.getServletPath();
 	        if (url.startsWith("/")) {
 	            if (ex instanceof HttpRequestMethodNotSupportedException) {
-	                setResponseParam(response, 405, "请求方式错误！");
+	                setResponseParam(response, 405, "请求方式错误！",ex);
 	                return null;
 	            }
 
 	            if (ex instanceof MissingServletRequestParameterException) {
-	                setResponseParam(response, 400, "错误请求！");
+	                setResponseParam(response, 400, "错误请求！",ex);
 	                return null;
 	            }
 
 	            if (ex instanceof NoHandlerFoundException) {
-	                setResponseParam(response, 404, "请求路径错误！");
+	                setResponseParam(response, 404, "请求路径错误！",ex);
 	                return null;
 	            }
 	            if (ex instanceof DuplicateKeyException) {
-	                setResponseParam(response, -1, "数据库已存在改记录！");
+	                setResponseParam(response, -1, "数据库已存在改记录！",ex);
 	                return null;
 	            }
 	            /*if (ex instanceof ArrayIndexOutOfBoundsException) {
@@ -57,17 +57,18 @@ public class GlobalExceptionResolver extends DefaultHandlerExceptionResolver {
 	            	return null;
 	            }*/
 	            
-	            setResponseParam(response, 500, "服务器内部错误！服务暂时不可用！");
+	            setResponseParam(response, 500, "服务器内部错误！服务暂时不可用！",ex);
 	            return null;
 	        }
 
 	        return super.doResolveException(request, response, handler, ex);
 	    }
 
-	    private void setResponseParam(HttpServletResponse response, int code, String msg) throws IOException {
+	    private void setResponseParam(HttpServletResponse response, int code, String msg,Exception ex) throws IOException {
 	      
 	        response.setContentType("application/json");
 	        response.setCharacterEncoding("utf-8");
 	        response.getWriter().print(JSONObject.toJSONString(R.error(code, msg)));
+	        ex.printStackTrace();
 	    }
 	}

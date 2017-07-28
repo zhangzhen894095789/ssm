@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
 import me.zhangzhen.domian.User;
 import me.zhangzhen.mapper.UserMapper;
 import me.zhangzhen.service.UserService;
@@ -16,28 +18,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUsers() {
 		// TODO Auto-generated method stub
-		return userMapper.findUsers();
-	}
+		// 查询姓名为‘张三’的所有用户记录
+		List<User> userList = userMapper.selectList(
+		        new EntityWrapper<User>().eq("111", "222")
+		);
 
-	@Override
-	@Transactional(readOnly = false)
-	public int createUser(User user) {
-		// TODO Auto-generated method stub
-		return userMapper.createUser(user);
+		return userList;
 	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public int updateUser(User user) {
-		// TODO Auto-generated method stub
-		return userMapper.updateUser(user);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public int deleteUserById(Integer id) {
-		// TODO Auto-generated method stub
-		return userMapper.deleteUserById(id);
-	}
-
 }

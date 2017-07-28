@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
 import me.zhangzhen.domian.User;
 import me.zhangzhen.mapper.UserMapper;
 import me.zhangzhen.service.dwr.DwrPushService;
@@ -24,20 +27,14 @@ public class UserController {
     public List<User> findUsers(){
 		DwrPushService.sendMessageAuto("", "查询用户");
 		//使用动态数据源
-		DbContextHolder.setDbType(DBTypeEnum.two);
-		List<User> findUsers = userMapper.findUsers();
-		System.out.println(findUsers);
+		DbContextHolder.setDbType(DBTypeEnum.one);
+		List<User> findUsers = userMapper.selectList();
+//		User user = new User();
+//		user.setUserName("333");
+//		user.insert();
         return findUsers;
     }
     
-//	@RequestMapping(value = "/findUser.do",produces="application/json")
-	@RequestMapping(value = "/findUser")
-    @ResponseBody
-    public User findUser(){
-		List<User> findUsers = userMapper.findUsers();
-		System.out.println(findUsers);
-        return findUsers.get(0);
-    }
 	
 //	@RequestMapping(value = "/zhongwen",produces = "text/json;charset=UTF-8")
 	@RequestMapping(value = "/zhongwen")
