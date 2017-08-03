@@ -53,6 +53,7 @@ public class RedisTest{
 		jedis.expire("haha", 30);
 //		jedis.expire("myhash",30);//有效期设置毫秒值
 		jedis.expireAt("myhash",time);//设置有限期时间戳
+
 		
 	}
 	
