@@ -515,7 +515,15 @@
 			<version>2.6.1</version>
 		</dependency>
 
-	</dependencies>
+		<!-- kaptcha 图片验证码开源框架 -->  
+	<!-- https://mvnrepository.com/artifact/com.github.axet/kaptcha -->
+		<dependency>
+		    <groupId>com.github.axet</groupId>
+		    <artifactId>kaptcha</artifactId>
+		    <version>0.0.9</version>
+		</dependency>
+
+</dependencies>
 
 	<build>
 		<plugins>
