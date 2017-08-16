@@ -81,7 +81,6 @@
             $(window).scroll(function(){
                 //alert("页面滚动");
                 var scrollTop = $(document).scrollTop();//浏览器滚动距离顶部的位置
-                console.log("浏览器滚动距离顶部的位置：" + scrollTop);
                 var menu = $("#menu");
               //  var top = menu.offset().top;//导航菜单距离顶部的位置
                 var content = $("#content");
@@ -89,9 +88,10 @@
                 items.each(function(){
                     var item = $(this);
                     var itemTop = item.offset().top;
+                    console.log("浏览器滚动距离顶部的位置：" + scrollTop);
                     console.log("每级分类距离顶部的位置：" +itemTop);
                     var currentId;
-                    if(scrollTop && scrollTop > itemTop - 50){
+                    if(scrollTop && scrollTop > itemTop - 200){
                         var current = menu.find(".current");
                         current.removeClass("current");
                         currentId = "#" + item.attr("id");
