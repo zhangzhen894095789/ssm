@@ -5,6 +5,14 @@
 <configuration>
     <!-- 配置全局属性 -->
     <settings>
+    	  <!-- 开启二级缓存，默认是false -->
+        <setting name="cacheEnabled" value="true"/>
+   		<!--  lazyLoadingEnabled:延迟加载启动，默认是false -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+<!--         aggressiveLazyLoading：积极的懒加载，false的话按需加载，默认是true -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+         
+      
         <!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
         <setting name="useGeneratedKeys" value="true" />
         <!-- 使用列别名替换列名 默认:true -->
@@ -16,7 +24,7 @@
     </settings>
 
     <typeAliases>
-        <package name="com.zhangzhen.domain" />
+        <package name="com.zhangzhen.domian" />
     </typeAliases>
 
 </configuration>

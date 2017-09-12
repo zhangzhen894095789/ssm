@@ -1,33 +1,116 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1" metadata-complete="true">
-  <!-- 修改servlet版本为3.1 -->
-  <!-- 配置DispatcherServlet -->
-  <servlet>
-    <servlet-name>job-dispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!-- 配置springMVC需要加载的配置文件
-        spring-dao.xml,spring-service.xml,spring-mvc.xml,spring-quartz.xml
-        Mybatis - > spring -> springmvc -> quartz
-     -->
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring/spring-*.xml</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>job-dispatcher</servlet-name>
-    <!-- 默认匹配所有的请求 -->
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+	version="3.1" metadata-complete="true">
 
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/spring-*.xml</param-value>
-  </context-param>
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+	<!-- spring上下文监听器，加载项目运行所需的配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/*.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- <filter> <filter-name>myFilter</filter-name> <filter-class>me.zhangzhen.filter.MyFilter</filter-class> 
+		</filter> -->
+
+	<!-- 修改servlet版本为3.1 -->
+	<!-- 配置DispatcherServlet -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置springMVC需要加载的配置文件 spring-dao.xml,spring-service.xml,spring-mvc.xml,spring-quartz.xml 
+			Mybatis - > spring -> springmvc -> quartz -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
+		</init-param>
+		<!-- web.xml 配置 handler 找不到抛异常 否则 自定义全局的mvc异常拦截拦截不到404 -->
+		<init-param>
+            <param-name>throwExceptionIfNoHandlerFound</param-name>
+            <param-value>true</param-value>
+        </init-param>
+		<!--  <load-on-startup>1</load-on-startup> -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 默认匹配所有的请求 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<!-- spring中文乱码过滤器 -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 方式2 与springmvc 集成 -->
+	<!-- <servlet-mapping> <servlet-name>springmvc</servlet-name> <url-pattern>/dwr/*</url-pattern> 
+		</servlet-mapping> -->
+
+	<!-- dwr设置 由于 mvc整合时遇到一些未知问题此处改为xml配置 -->
+	<!-- 方式1 -->
+
+
+	<!--dwr servlet -->
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<!--脚本session管理器，加载脚本监听器 -->
+		<init-param>
+			<param-name>org.directwebremoting.extend.ScriptSessionManager</param-name>
+			<param-value>me.zhangzhen.service.dwr.MyScriptSeessionManager</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowScriptTagRemoting</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- DWR默认采用piggyback方式 -->
+		<!-- 使用polling和comet的方式 -->
+		<init-param>
+			<param-name>pollAndCometEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>activeReverseAjaxEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!--10个小时脚本session有效期 -->
+		<init-param>
+			<param-name>scriptSessionTimeout</param-name>
+			<param-value>36000000</param-value>
+		</init-param>
+		<init-param>
+			<!-- dwr配置文件路径 -->
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/dwr.xml</param-value>
+		</init-param>
+			<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
 
 </web-app>

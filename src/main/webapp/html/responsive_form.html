@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- 以下为自己引入-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>bootstrap table(响应式)</title>
+	<!-- 引入bootstrap cdn -->
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css" rel="stylesheet"> --><!-- 引入去格式化 -->
+	<script type="text/javaScript" src="../js/table.js"></script>
+</head>
+<body>
+<!-- <h2>bootstrap ul li列表</h2>
+	<ul id="nav" class="list-group">
+		<li class="list-group-item active"><a href=""><font color="red">Item 1</font>></a></li>
+		<li class="list-group-item"><a href="">Item 2</a></li>
+	
+	</ul>
+<h2>bootstrap ol li列表</h2>
+	<ol id="nav1">
+		<li class="list-group-item"><a href="">item 1</a></li>
+		
+	</ol> -->
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered" id="tb">
+    <caption style="text-align: center;font-size: 30px;font-weight: 20px;font-style: " >响应式表格布局</caption>
+    <p>通过把任意的 .table 包在 .table-responsive class 内，您可以让表格水平滚动以适应小型设备（小于 768px）。当在大于 768px 宽的大型设备上查看时，您将看不到任何的差别。</p>
+    <thead>
+      <tr >
+        <th>产品</th>
+        <th>付款日期</th>
+        <th>状态</th>
+		<th>收货日期</th>   
+        </tr>  
+    </thead>
+    <tbody >
+      <tr class="active" title="active" >
+        <td>产品1</td>
+        <td>23/11/2013</td>
+        <td>待发货</td>
+		<td>23/11/2013</td>
+        </tr>
+      <tr class="success" title="success">
+        <td>产品2</td>
+        <td>10/11/2013</td>
+        <td>发货中</td>
+		<td>23/11/2013</td>
+        </tr>
+      <tr class="warning" title="warning">
+        <td>产品3</td>
+        <td>20/10/2013</td>
+        <td>待确认</td>
+        <td>23/11/2013</td>
+        </tr>
+      <tr class="danger" title="danger">
+        <td>产品4</td>
+        <td>20/10/2013</td>
+        <td>已退货</td>
+		<td>23/11/2013</td>
+        </tr>
+         
+         <tr class="info" title="info">
+        <td >产品4</td>
+        <td>20/10/2013</td>
+        <td>已退货</td>
+		<td>23/11/2013</td>
+        </tr>
+
+
+         <tr >
+        <td>产品1</td>
+        <td>23/11/2013</td>
+        <td>待发货</td>
+		<td>23/11/2013</td>
+        </tr>
+      <tr>
+        <td>产品2</td>
+        <td>10/11/2013</td>
+        <td>发货中</td>
+		<td>23/11/2013</td>
+        </tr>
+      <tr>
+        <td>产品3</td>
+        <td>20/10/2013</td>
+        <td>待确认</td>
+        <td>23/11/2013</td>
+        </tr>
+      <tr>
+        <td>产品4</td>
+        <td>20/10/2013</td>
+        <td>已退货</td>
+		<td>23/11/2013</td>
+        </tr>
+         
+         <tr>
+        <td >产品4</td>
+        <td>20/10/2013</td>
+        <td>已退货</td>
+		<td>23/11/2013</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

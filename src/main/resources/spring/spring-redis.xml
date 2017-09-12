@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	 xmlns="http://www.springframework.org/schema/beans" 
+		   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xmlns:p="http://www.springframework.org/schema/p" 
+		   xmlns:tx="http://www.springframework.org/schema/tx"
+		   xmlns:context="http://www.springframework.org/schema/context"
+		   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			   ">
+			   
+	<!-- spring的属性加载器，加载properties文件中的属性 -->  
+<!-- spring的属性加载器，加载properties文件中的属性 -->  
+	<!-- <bean id="propertyConfigurer"  
+	    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="location">  
+	        <value>/WEB-INF/classes/properties/application_all.properties</value>  
+	    </property>  
+	    <property name="fileEncoding" value="utf-8" />  
+	</bean>   -->
+   <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+	  <property name="maxTotal" value="10" />
+	  <property name="maxIdle" value="10" />
+	  <property name="minIdle" value="1" />
+	  <property name="testOnBorrow" value="true" />
+	  <property name="testOnReturn" value="true" />
+	  <property name="testWhileIdle" value="true" />
+	  <property name="numTestsPerEvictionRun" value="10" />
+	  <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	  <property name="maxWaitMillis" value="300" />
+ 	</bean>
+ 	
+  <!--  <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg index="0" value="${redis.host}" />
+					<constructor-arg index="1" value="${redis.port}" type="int" />
+					<constructor-arg index="2" value="10000" type="int" />
+					<property name="password" value="${redis.password}" />
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean> -->
+    
+     <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg index="0" value="192.168.71.130" />
+					<constructor-arg index="1" value="5672" type="int" />
+					<constructor-arg index="2" value="10000" type="int" />
+					<property name="password" value=""  />
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+</beans>
